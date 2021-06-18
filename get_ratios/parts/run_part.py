@@ -2,22 +2,26 @@ import os
 
 # assumes executable from get_part_ratios.cpp has already been made
 
-temps = ["25C"]
+# temps = ["25C"]
+temps = ["25C", "35C", "45C"]
 
 for T in temps:
     print(T)
 
     # should be the same on both sides
-    # files = os.listdir(f"../norm_movies/{T}")
     path = "../.."
     part_locs = f"{path}/part_data/{T}/L"
+
+    # gives coordinates of particles for each spool
     spools = os.listdir(part_locs)
 
     for F in spools:
         l_locs  = part_locs + f"/{F}"
         r_locs  = f"{path}/part_data/{T}/R/{F}"
 
+        # only need left locations, bc right side is the same particles
         locs_dir  = os.listdir(l_locs)
+        # number of particles in curr directory
         num_parts = len(locs_dir)
 
         locs = ""

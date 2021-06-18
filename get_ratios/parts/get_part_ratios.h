@@ -12,15 +12,17 @@
 #define X 512
 #define Y 512
 
+// returns vector of array of ratios (floats) for each particle in the
+// current spool
 std::vector<float*> get_particle_ratios(std::vector<float**> &arr,
                                         std::vector<std::string> L_locs,
                                         std::vector<std::string> R_locs,
                                         int *num_slides);
 
 void write_ratios_all_slides(std::vector<float*> all_data,
-                      std::string file,
-                      std::string temp,
-                      int *num_slides);
+                             std::string file,
+                             std::string temp,
+                             int *num_slides);
 
 float make_one_box(std::vector<float**> &arr,
                 int slide,

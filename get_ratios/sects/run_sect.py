@@ -16,5 +16,5 @@ for T in temps:
     for F in files:
         movie   = f"{path}/norm_movies/{T}/{F}"
         command = f"./a.out {movie} {T} {F}"
-        ## OUTFILE SAVED AT: 
+        ## OUTFILE SAVED AT: ratios/sector_ratios/T/F
         os.system(command)

@@ -6,6 +6,8 @@
 
 // This function gets the ratios at the specified coordinates for
 // the current spool
+// arr contains the normalized movie for the curr spool
+// side_spools contains the location of the particles in that spool
 std::vector<float*> get_particle_ratios(std::vector<float**> &arr,
                                         std::vector<std::string> L_spools,
                                         std::vector<std::string> R_spools,
@@ -13,6 +15,7 @@ std::vector<float*> get_particle_ratios(std::vector<float**> &arr,
 {
     float tmp;
 
+    // ratios through all slides in float* stored in vector for each spool
     std::vector<float*> all_parts_time;
 
     // make a 16x16 box around the particle
@@ -24,17 +27,18 @@ std::vector<float*> get_particle_ratios(std::vector<float**> &arr,
     for (std::string L_S : L_spools) {
 
         std::vector<int> x_L_vals, x_R_vals, y_L_vals, y_R_vals;
-        int slide = 0;
+        int slide = 0; //initialize to zero, don't iterate it
 
         std::string R_S = R_spools[i];
 
-        std::fstream L_locs, R_locs;
+        std::ifstream L_locs, R_locs;
 
         L_locs.open(L_S);
         R_locs.open(R_S);
 
         while (L_locs >> tmp) {
 
+            // value will still be last slide even at EOF
             slide = tmp;
 
             if (!L_locs.good()) {
@@ -47,7 +51,8 @@ std::vector<float*> get_particle_ratios(std::vector<float**> &arr,
             L_locs >> tmp;
             y_L_vals.push_back((int)tmp);
 
-            R_locs >> tmp; // slide numbers are the same for each side
+            // slide numbers and size are the same for each side
+            R_locs >> tmp;
             R_locs >> tmp;
             x_R_vals.push_back((int)tmp);
 
@@ -68,7 +73,7 @@ std::vector<float*> get_particle_ratios(std::vector<float**> &arr,
             float to_set_L = make_one_box(arr, slide + j, x_L_vals[j] - 8, y_L_vals[j] - 8, w, h);
             float to_set_R = make_one_box(arr, slide + j, x_R_vals[j] - 8, y_R_vals[j] - 8, w, h);
 
-            // get the absolute value (assumes negative values are small)
+            // get the absolute value ***(assumes negative values are small)
             float tmp = std::abs(to_set_L) / std::abs(to_set_R);
             ratios_time[j] = tmp;
         }
@@ -91,6 +96,7 @@ void write_ratios_all_slides(std::vector<float*> all_data,
 
     for (int i = 0; i < num_parts; i++) {
 
+        // change path as necessary
         location = "../../ratios/part_ratios/" + temp + "/"
                     + spool + "/part" + std::to_string(i);
         

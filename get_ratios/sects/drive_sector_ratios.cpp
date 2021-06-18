@@ -1,6 +1,6 @@
 #include "get_sector_ratios.h"
 
-int main(int argc, char *argv[]){
+int main (int argc, char *argv[]) {
 
     if (argc < 2) {
         std::cerr << "PLEASE SPECIFY 1 ARGUMENT\n";
@@ -13,10 +13,10 @@ int main(int argc, char *argv[]){
     if (spool[6] == '.') { spool[6] = '\0'; }
     else { spool[7] = '\0'; }
 
-    std::fstream infile;
+    std::ifstream infile;
     infile.open(norm_mov);
 
-    float val;
+    float tmp;
 
     std::vector<float**> arr;
 
@@ -30,14 +30,14 @@ int main(int argc, char *argv[]){
 
         for (int j = 0; j < X; j++) {
             for (int k = 0; k < Y; k++) {
-                infile >> val;
+                infile >> tmp;
 
                 if (!infile.good())
                     break; // we reached the end or there was error
 
                 num_slides++;
 
-                slide[j][k] = val;
+                slide[j][k] = tmp;
             }
         }
 
@@ -47,6 +47,9 @@ int main(int argc, char *argv[]){
         arr.push_back(slide);
     }
 
+    // number of slides is just the number of slides in the file
+    // compare to particle ratios, where the number of slides is the
+    // number of slides with particles in them
     num_slides /= (512*512);
 
     std::vector<float*> all_ratios = get_sector_ratios(arr, num_slides);

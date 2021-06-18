@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
     std::fstream infile;
     infile.open(norm_mov);
 
-    float val;
+    float tmp;
     std::vector<float**> arr;
 
     while(infile.good()) {
@@ -29,12 +29,12 @@ int main(int argc, char *argv[])
 
         for (int j = 0; j < X; j++) {
             for (int k = 0; k < Y; k++) {
-                infile >> val;
+                infile >> tmp;
 
                 if (!infile.good())
                     break; // we reached the end or there was error
 
-                slide[j][k] = val;
+                slide[j][k] = tmp;
             }
         }
 
@@ -44,6 +44,7 @@ int main(int argc, char *argv[])
         arr.push_back(slide);
     }
 
+    // number of slides is different for every particle
     int *num_slides = new int[num_parts];
 
     std::vector<float*> all_ratios = get_particle_ratios(arr, L_locs, R_locs, num_slides);

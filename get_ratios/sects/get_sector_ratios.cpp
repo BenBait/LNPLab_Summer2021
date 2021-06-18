@@ -20,7 +20,7 @@ std::vector<float*> get_sector_ratios(std::vector<float**> &arr,
 
     for(int i = 0; i < 4; i++) { //4 = number of x values
         for(int j = 0; j < 2; j++) { //2 = number of y values
-            //make box around a quadrant of each side
+            //make box around an octant of each side
             float *to_set_L = make_box(arr, num_slides, x_L_vals[i], y_vals[j], w, h);
             float *to_set_R = make_box(arr, num_slides, x_R_vals[i], y_vals[j], w, h);
 
