@@ -1,3 +1,5 @@
+// This file is where the procedures to get the fluorescent ratios
+// are called
 #include "get_part_ratios.h"
 
 int main(int argc, char *argv[])
