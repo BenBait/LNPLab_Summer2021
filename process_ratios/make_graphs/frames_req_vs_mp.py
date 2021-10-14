@@ -21,6 +21,7 @@ for T in temps:
     time_needed  = np.zeros((2, m_s))
     first        = np.array([1, 1, 1])
 
+    # find where the variation is first within range
     for i in range(0, m_s):
         for j in range(0, NUM_SIZES):
 
