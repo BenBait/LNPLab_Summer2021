@@ -1,3 +1,5 @@
+// This file is for interfacing with the ASCII images with the image data
+// and background data
 #include"image_arr.h"
 #include <iostream>
 #include <fstream>
