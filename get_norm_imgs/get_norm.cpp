@@ -1,3 +1,4 @@
+// This file is for normalizing/subtracting the background of the image
 #include "image_arr.h"
 
 int main(int argc, char *argv[]){
